@@ -1,45 +1,37 @@
-// store/index.js
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
 
 Vue.use(Vuex);
 
-const store = new Vuex.Store({
+export default new Vuex.Store({
   state: {
-    token: localStorage.getItem('authToken') || '',
-    isUserLoggedIn: !!localStorage.getItem('authToken')
+    auth: {
+      isLoggedIn: false,
+      username: ''
+    }
   },
   mutations: {
-    SET_TOKEN(state, token) {
-      state.token = token;
-      localStorage.setItem('authToken', token);
-      state.isUserLoggedIn = !!token;
+    LOGIN(state, username) {
+      state.auth.isLoggedIn = true;
+      state.auth.username = username;
     },
     LOGOUT(state) {
-      state.token = '';
-      localStorage.removeItem('authToken');
-      state.isUserLoggedIn = false;
+      state.auth.isLoggedIn = false;
+      state.auth.username = '';
     }
   },
   actions: {
-    login({ commit }, { email, senha }) {
-      return axios.post('http://localhost:3001/login', { email, senha })
-        .then(response => {
-          const { token } = response.data;
-          commit('SET_TOKEN', token);
-          return response;
-        })
-        .catch(error => {
-          console.error('Erro ao fazer login:', error.response.data);
-          throw error;
-        });
+    login({ commit }, email) {
+      // Simulação de uma lógica de autenticação
+      commit('LOGIN', email); // Passando o email para o estado
+    },
+    logout({ commit }) {
+      commit('LOGOUT');
     }
   },
   getters: {
-    getToken: state => state.token,
-    isUserLoggedIn: state => state.isUserLoggedIn
+    isUserLoggedIn(state) {
+      return state.auth.isLoggedIn;
+    }
   }
 });
-
-export default store;

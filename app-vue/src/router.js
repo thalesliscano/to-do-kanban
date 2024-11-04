@@ -33,7 +33,7 @@ const routes = [
       if (!store.getters.isUserLoggedIn) {
         next('/login');
       } else {
-        next(); // Usuário autenticado, prosseguir para a rota
+        next();
       }
     },
   },
