@@ -33,7 +33,7 @@ export default {
         .then(response => {
           console.log('Login bem-sucedido', response);
           // Redireciona para a página /usuario após login bem-sucedido
-          this.$router.push('/usuario');
+          this.$router.push('/user');
         })
         .catch(error => {
           console.error('Erro ao fazer login', error.response ? error.response.data : error.message);
