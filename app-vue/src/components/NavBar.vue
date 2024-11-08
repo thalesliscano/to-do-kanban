@@ -17,31 +17,30 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'; // Se você estiver usando Vuex
+import { mapState } from 'vuex';
 
 export default {
   name: "NavBar",
   computed: {
     ...mapState({
-      isLoggedIn: state => state.auth.isLoggedIn, // Acesse o estado de login
-      username: state => state.auth.username // Acesse o nome do usuário
+      isLoggedIn: state => state.auth.isLoggedIn,
+      username: state => state.auth.username
     })
   },
   methods: {
     logout() {
-      // Aqui você deve implementar a lógica para deslogar o usuário
-      this.$store.dispatch('auth/logout') // Exemplo de chamada de ação Vuex
+      this.$store.dispatch('logout') // Chame a ação de logout diretamente
         .then(() => {
-          // Redireciona para a home após o logout
-          this.$router.push('/'); // Mude para a rota da página inicial
+          this.$router.push('/'); // Redireciona para a página inicial
         })
         .catch(error => {
           console.error("Logout error:", error);
         });
     }
   }
-} 
+};
 </script>
+
 
 <style scoped>
 .navbar {
